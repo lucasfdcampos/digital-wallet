@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { KafkaTopics } from './common/enums/kafka-topics.enum';
 import { ConsumerService } from './kafka/consumer.service';
+import { KafkaTopics } from './common/enums/kafka-topics.enum';
 
 @Injectable()
 export class Consumer implements OnModuleInit {
@@ -8,15 +8,15 @@ export class Consumer implements OnModuleInit {
   async onModuleInit() {
     await this.consumerService.consume(
       {
-        topics: [KafkaTopics.CREATE_TRANSACTION],
+        topics: [KafkaTopics.CREATE_HISTORY],
         fromBeginning: true,
       },
       {
         /* eslint-disable */
         eachMessage: async ({ topic, partition, message }) => {
-          if (topic === KafkaTopics.CREATE_TRANSACTION) {
-            // do something
-          }
+          // if (topic === KafkaTopics.CREATE_HISTORY) {
+          //   // do something
+          // }
         },
       },
     );

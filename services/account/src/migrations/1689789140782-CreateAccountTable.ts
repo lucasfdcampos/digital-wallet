@@ -8,7 +8,7 @@ export class CreateAccountTable1689789140782 implements MigrationInterface {
       CREATE TABLE IF NOT EXISTS account (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "name" varchar(255) NOT NULL, 
-        "email" varchar(100) NOT NULL, 
+        "email" varchar(100) NOT NULL UNIQUE, 
         "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), 
         "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), 
         "deleted_at" TIMESTAMP WITH TIME ZONE, 
@@ -16,14 +16,10 @@ export class CreateAccountTable1689789140782 implements MigrationInterface {
     `);
 
     await queryRunner.query('CREATE INDEX idx_account_name ON account (name)');
-    await queryRunner.query(
-      'CREATE INDEX idx_account_email ON account (email)',
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query('DROP INDEX idx_account_name');
-    await queryRunner.query('DROP INDEX idx_account_email');
 
     await queryRunner.query('DROP TABLE account');
   }

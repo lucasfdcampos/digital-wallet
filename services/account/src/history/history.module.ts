@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { HistoryService } from './history.service';
 import { HistoryController } from './history.controller';
+import { ListHistoryService } from './services/list-history.service';
+import { GetHistoryService } from './services/get-history.service';
 
 @Module({
   controllers: [HistoryController],
-  providers: [HistoryService]
+  providers: [ListHistoryService, GetHistoryService],
 })
 export class HistoryModule {}

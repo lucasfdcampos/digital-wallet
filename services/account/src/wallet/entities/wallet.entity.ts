@@ -15,8 +15,8 @@ export class Wallet extends AbstractEntity {
   @Column({ type: 'decimal', default: 0 })
   amount: number;
 
-  @Column({ type: 'boolean', default: true })
-  is_enabled: boolean;
+  @Column({ name: 'is_enabled', type: 'boolean', default: true })
+  isEnabled: boolean;
 
   @ManyToOne(() => Account, (account) => account.id)
   @JoinColumn({ name: 'account_id', referencedColumnName: 'id' })
@@ -24,7 +24,7 @@ export class Wallet extends AbstractEntity {
 
   @BeforeInsert()
   setDefaultValueForIsEnabled() {
-    this.is_enabled = true;
+    this.isEnabled = true;
   }
 
   @BeforeInsert()

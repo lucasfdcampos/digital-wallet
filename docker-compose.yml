@@ -1,7 +1,7 @@
 version: "3.8"
 
 networks:
-  wallet-net:
+  picpay-net:
     external: true
 
 services:
@@ -11,7 +11,7 @@ services:
     container_name: account-db
     restart: always
     networks:
-      - wallet-net
+      - picpay-net
     ports:
       - 5432:5432
     environment:
@@ -28,7 +28,7 @@ services:
     container_name: transaction-db
     restart: always
     networks:
-      - wallet-net
+      - picpay-net
     ports:
       - 5433:5432
     environment:
@@ -53,8 +53,9 @@ services:
     command: yarn start:dev
     environment:
       - DATABASE_URL=postgresql://admin:admin@account-db/account
+      - KAFKA_URL=kafka:9092
     networks:
-      - wallet-net
+      - picpay-net
     ports:
       - 3000:3000
     depends_on:
@@ -75,8 +76,9 @@ services:
     command: yarn start:dev
     environment:
       - DATABASE_URL=postgresql://admin:admin@transaction-db/transaction
+      - KAFKA_URL=kafka:9092
     networks:
-      - wallet-net
+      - picpay-net
     ports:
       - 3010:3010
     depends_on:
@@ -95,7 +97,7 @@ services:
   #     KONG_DECLARATIVE_CONFIG: /kong/declarative/kong.yaml
   #     KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
   #   networks:
-  #     - wallet-net
+  #     - picpay-net
   #   ports:
   #     - "8000:8000/tcp"
   #     - "127.0.0.1:8001:8001/tcp"
@@ -114,15 +116,15 @@ services:
   #       condition: on-failure
   
   zook:
-      image: confluentinc/cp-zookeeper:latest
-      hostname: zook
-      container_name: zook
-      environment:
-        ZOOKEEPER_CLIENT_PORT: 2181
-      networks:
-        - wallet-net
-      ports:
-        - 2181:2181
+    image: confluentinc/cp-zookeeper:latest
+    hostname: zook
+    container_name: zook
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+    networks:
+      - picpay-net
+    ports:
+      - 2181:2181
     
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -131,15 +133,15 @@ services:
     ports:
       - 9092:9092
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: zook:2181
-      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-      KAFKA_LISTENERS: INTERNAL://:9092
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT
+      - KAFKA_BROKER_ID=1
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKAJS_NO_PARTITIONER_WARNING=1
+      - KAFKA_ZOOKEEPER_CONNECT=zook:2181
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
     networks:
-      - wallet-net
+      - picpay-net
     depends_on:
       - zook
 
@@ -153,7 +155,7 @@ services:
       - KAFKA_CLUSTERS_0_ZOOKEEPER=zook:2181
       - KAFKA_CLUSTERS_0_NAME=local
     networks:
-      - wallet-net
+      - picpay-net
     ports:
       - 8080:8080
     depends_on:

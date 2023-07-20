@@ -119,6 +119,8 @@ services:
       container_name: zook
       environment:
         ZOOKEEPER_CLIENT_PORT: 2181
+      networks:
+        - wallet-net
       ports:
         - 2181:2181
     
@@ -136,6 +138,8 @@ services:
       KAFKA_LISTENERS: INTERNAL://:9092
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT
+    networks:
+      - wallet-net
     depends_on:
       - zook
 

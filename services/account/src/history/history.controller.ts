@@ -7,6 +7,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ShowHistorySwagger } from './swagger/show-history.swagger';
 import { IndexHistorySwagger } from './swagger/index-history.swagger';
 import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
+import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
 
 @Controller('v1/history')
 @ApiTags('Historic')
@@ -17,13 +18,23 @@ export class HistoryController {
   ) {}
 
   @Get()
+  @ApiOperation({ summary: 'List historic' })
   @ApiResponse({
     status: 200,
     description: 'History list returned successfully',
     type: IndexHistorySwagger,
     isArray: true,
   })
-  @ApiOperation({ summary: 'List historic' })
+  @ApiResponse({
+    status: 404,
+    description: 'Wallet does not exist',
+    type: NotFoundSwagger,
+  })
+  @ApiResponse({
+    status: 422,
+    description: 'Wallet is not enabled',
+    type: UnprocessableSwagger,
+  })
   async index(@Query() query: ListHistoryParamsDto) {
     return await this.listHistoryService.execute(query);
   }

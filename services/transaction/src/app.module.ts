@@ -3,9 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormConfig from './orm.config';
 import { join } from 'path';
 import { TransactionModule } from './transaction/transaction.module';
+import { KafkaModule } from './kafka/kafka.module';
+import { Consumer } from './consumer';
 
 @Module({
   imports: [
+    KafkaModule,
     TypeOrmModule.forRoot({
       ...ormConfig,
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
@@ -13,5 +16,6 @@ import { TransactionModule } from './transaction/transaction.module';
     }),
     TransactionModule,
   ],
+  providers: [Consumer],
 })
 export class AppModule {}

@@ -3,4 +3,5 @@ export enum HistoryType {
   WITHDRAW = 'withdraw',
   PURCHASE = 'purchase',
   CANCELLATION = 'cancellation',
+  REVERSAL = 'reversal',
 }

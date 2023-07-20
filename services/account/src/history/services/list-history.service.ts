@@ -1,22 +1,47 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 import { ListHistoryParamsDto } from '../dto/list-history-query-params.dto';
 import { History } from '../entities/history.entity';
+import { Wallet } from 'src/wallet/entities/wallet.entity';
 
 @Injectable()
 export class ListHistoryService {
   constructor(
+    @InjectRepository(Wallet)
+    private readonly walletRepository: Repository<Wallet>,
     @InjectRepository(History)
     private readonly historyRepository: Repository<History>,
   ) {}
 
   async execute(query: ListHistoryParamsDto) {
     this.validatePeriod(query);
+    await this.validateWallet(query.walletId);
 
     const queryBuilder = this.createQueryBuilder(query);
     this.queryDateIfAvailable(query, queryBuilder, 'createdAt', 'created_at');
     return this.list(queryBuilder, query);
+  }
+
+  private async validateWallet(walletId: string): Promise<void> {
+    const wallet = await this.walletRepository.findOne({
+      where: {
+        id: walletId,
+      },
+    });
+
+    if (!wallet) {
+      throw new NotFoundException('Wallet does not exist');
+    }
+
+    if (!wallet.isEnabled) {
+      throw new UnprocessableEntityException('Wallet is not enabled');
+    }
   }
 
   private validatePeriod(query: ListHistoryParamsDto): void {

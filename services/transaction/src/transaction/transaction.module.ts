@@ -7,6 +7,7 @@ import { ListTransactionService } from './services/list-transaction.service';
 import { CreateTransactionHandler } from './handler/create-transaction.handler';
 import { CreateTransactionService } from './services/create-transaction.service';
 import { UpdateWalletHandler } from './handler/update-wallet.handler';
+import { CancelTransactionService } from './services/cancel-transaction.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Transaction])],
@@ -17,6 +18,7 @@ import { UpdateWalletHandler } from './handler/update-wallet.handler';
     CreateTransactionHandler,
     UpdateWalletHandler,
     CreateTransactionService,
+    CancelTransactionService,
   ],
   exports: [CreateTransactionHandler],
 })

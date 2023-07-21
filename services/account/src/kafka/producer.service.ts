@@ -8,7 +8,7 @@ import { Kafka, Producer, ProducerRecord } from 'kafkajs';
 @Injectable()
 export class ProducerService implements OnModuleInit, OnApplicationShutdown {
   private readonly kafka = new Kafka({
-    clientId: 'wallet-transaction',
+    clientId: 'account',
     brokers: [process.env.KAFKA_URL],
   });
 

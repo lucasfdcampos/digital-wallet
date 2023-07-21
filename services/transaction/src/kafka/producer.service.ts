@@ -3,12 +3,12 @@ import {
   OnApplicationShutdown,
   OnModuleInit,
 } from '@nestjs/common';
-import { Kafka, Producer } from 'kafkajs';
+import { Kafka, Producer, ProducerRecord } from 'kafkajs';
 
 @Injectable()
 export class ProducerService implements OnModuleInit, OnApplicationShutdown {
   private readonly kafka = new Kafka({
-    clientId: 'wallet-transaction',
+    clientId: 'transaction',
     brokers: [process.env.KAFKA_URL],
   });
 
@@ -22,7 +22,7 @@ export class ProducerService implements OnModuleInit, OnApplicationShutdown {
     return this.kafka.admin().listTopics();
   }
 
-  async produce({ record }) {
+  async produce(record: ProducerRecord) {
     await this.producer.send(record);
   }
 

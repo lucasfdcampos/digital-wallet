@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { SendTransactionDto } from '../dto/send-transaction.dto';
 import { KafkaTopics } from 'src/common/enums/kafka-topics.enum';
 import { ProducerService } from 'src/kafka/producer.service';
+import { TransactionType } from '../enums/transaction-type.enum';
 
 @Injectable()
 export class SendTransactionsService {
@@ -19,9 +20,7 @@ export class SendTransactionsService {
   ) {}
 
   async execute(id: string, data: SendTransactionDto): Promise<void> {
-    await this.validateWallet(id);
-
-    // todo -- validar withdraw com wallet.amount
+    await this.validateWallet(id, data);
 
     await this.producerService.produce({
       topic: KafkaTopics.CREATE_TRANSACTION,
@@ -37,7 +36,10 @@ export class SendTransactionsService {
     });
   }
 
-  private async validateWallet(id: string): Promise<void> {
+  private async validateWallet(
+    id: string,
+    transaction: SendTransactionDto,
+  ): Promise<void> {
     const wallet = await this.walletRepository.findOne({
       where: { id },
     });
@@ -48,6 +50,15 @@ export class SendTransactionsService {
 
     if (!wallet.isEnabled) {
       throw new UnprocessableEntityException('Wallet is not enabled');
+    }
+
+    if (
+      transaction.type === TransactionType.WITHDRAW &&
+      wallet.amount < transaction.value
+    ) {
+      throw new UnprocessableEntityException(
+        'Insufficient balance for the transaction',
+      );
     }
   }
 }

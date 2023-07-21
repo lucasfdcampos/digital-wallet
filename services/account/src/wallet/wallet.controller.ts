@@ -59,6 +59,11 @@ export class WalletController {
     description: 'Wallet is not enabled',
     type: UnprocessableSwagger,
   })
+  @ApiResponse({
+    status: 422,
+    description: 'Insufficient balance for the transaction',
+    type: UnprocessableSwagger,
+  })
   async sendTransactionData(
     @Param() param: ValidIdUUidParam,
     @Body() sendTransactionDto: SendTransactionDto,

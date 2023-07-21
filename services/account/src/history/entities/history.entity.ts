@@ -1,7 +1,7 @@
 import { Wallet } from 'src/wallet/entities/wallet.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { HistoryType } from '../enums/history-type.enum';
 import { AbstractEntity } from 'src/common/entities/abstract.entity';
+import { HistoryType } from 'src/common/enums/history-type.enum';
 
 @Entity({ name: 'history' })
 export class History extends AbstractEntity {
@@ -16,6 +16,9 @@ export class History extends AbstractEntity {
 
   @Column({ type: 'enum', enum: HistoryType })
   type: HistoryType;
+
+  @Column({ name: 'transaction_id' })
+  transactionId: string;
 
   @ManyToOne(() => Wallet, (wallet) => wallet.id)
   @JoinColumn({ name: 'wallet_id', referencedColumnName: 'id' })

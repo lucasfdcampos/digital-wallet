@@ -9,6 +9,7 @@ export class CreateHistoryTable1689792447777 implements MigrationInterface {
         "old_amount" decimal(10, 2) NOT NULL,
         "new_amount" decimal(10, 2) NOT NULL,
         "type" varchar(30) NOT NULL,
+        "transaction_id" uuid,
         "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
         "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
         "deleted_at" TIMESTAMP WITH TIME ZONE,

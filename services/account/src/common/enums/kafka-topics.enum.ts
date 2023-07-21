@@ -1,4 +1,4 @@
 export enum KafkaTopics {
   CREATE_TRANSACTION = 'create_transaction',
-  CREATE_HISTORY = 'create_history',
+  UPDATE_WALLET_AMOUNT = 'update_wallet_amount',
 }

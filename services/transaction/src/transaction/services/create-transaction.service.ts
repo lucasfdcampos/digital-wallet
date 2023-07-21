@@ -12,12 +12,13 @@ export class CreateTransactionService {
     private readonly transactionRepository: Repository<Transaction>,
   ) {}
 
-  async execute(event: TransactionCreated): Promise<Transaction> {
+  async execute(data: TransactionCreated): Promise<Transaction> {
     const transaction = this.transactionRepository.create({
-      walletId: event.walletId,
-      type: event.type,
-      value: event.value,
+      walletId: data.walletId,
+      type: data.type,
+      value: data.value,
       status: TransactionStatus.APPROVED,
+      originalTransactionId: data.originalTransactionId,
     });
     return await this.transactionRepository.save(transaction);
   }

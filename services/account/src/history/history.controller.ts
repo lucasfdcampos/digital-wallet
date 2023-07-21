@@ -9,8 +9,8 @@ import { IndexHistorySwagger } from './swagger/index-history.swagger';
 import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
 import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
 
-@Controller('v1/history')
 @ApiTags('Historic')
+@Controller('v1/history')
 export class HistoryController {
   constructor(
     private readonly listHistoryService: ListHistoryService,

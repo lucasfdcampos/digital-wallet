@@ -13,8 +13,8 @@ import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
 import { SendTransactionsService } from './services/send-transactions.service';
 import { SendTransactionDto } from './dto/send-transaction.dto';
 
-@Controller('v1/wallet')
 @ApiTags('Wallets')
+@Controller('v1/wallet')
 export class WalletController {
   constructor(
     private readonly createWalletService: CreateWalletService,

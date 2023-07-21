@@ -9,8 +9,8 @@ import { ShowAccountSwagger } from './swagger/show-account.swagger';
 import { ValidIdUUidParam } from 'src/common/dto/valid-id-uuid-param';
 import { Account } from './entities/account.entity';
 
-@Controller('v1/account')
 @ApiTags('Accounts')
+@Controller('v1/account')
 export class AccountController {
   constructor(
     private readonly createAccountService: CreateAccountService,

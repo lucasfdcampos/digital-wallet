@@ -16,9 +16,9 @@ export class UpdateWalletAmountService {
     });
 
     const oldAmount = parseFloat(wallet.amount.toString());
-    const newAmount = oldAmount + amountChange;
+    const newAmount = oldAmount + parseFloat(amountChange.toString());
 
-    wallet.amount = newAmount;
+    wallet.amount = parseFloat(newAmount.toString());
 
     return this.walletRepository.save(wallet);
   }

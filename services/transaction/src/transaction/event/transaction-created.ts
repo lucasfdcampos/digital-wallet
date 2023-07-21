@@ -6,4 +6,6 @@ export class TransactionCreated {
   type: TransactionType;
 
   value: number;
+
+  originalTransactionId?: string;
 }

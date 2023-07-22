@@ -3,15 +3,15 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Transaction } from '../entities/transaction.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { TransactionType } from '../enums/transaction-type.enum';
 import { ProducerService } from 'src/kafka/producer.service';
 import { KafkaTopics } from 'src/common/enums/kafka-topics.enum';
+import { Transaction } from '../entities/transaction.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class CancelTransactionService {
+export class ReverseTransactionService {
   constructor(
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,
@@ -22,10 +22,7 @@ export class CancelTransactionService {
     const originalTransaction = await this.validateOriginalTransaction(
       originalTransactionId,
     );
-
-    await this.validateOriginalTransactionAlreadyCancelled(originalTransaction);
-
-    await this.validateLastPurchaseTransaction(originalTransaction);
+    await this.validateOriginalTransactionAlreadyReversed(originalTransaction);
 
     await this.producerService.produce({
       topic: KafkaTopics.CREATE_TRANSACTION,
@@ -33,7 +30,7 @@ export class CancelTransactionService {
         {
           value: JSON.stringify({
             walletId: originalTransaction.walletId,
-            type: TransactionType.CANCELLATION,
+            type: TransactionType.REVERSAL,
             value: originalTransaction.value,
             originalTransactionId: originalTransaction.id,
           }),
@@ -60,56 +57,20 @@ export class CancelTransactionService {
     return originalTransaction;
   }
 
-  private async validateOriginalTransactionAlreadyCancelled(
+  private async validateOriginalTransactionAlreadyReversed(
     originalTransaction: Transaction,
   ): Promise<void> {
-    const canceledTransaction = await this.transactionRepository.findOne({
+    const reversedTransaction = await this.transactionRepository.findOne({
       where: {
         originalTransactionId: originalTransaction.id,
-        type: TransactionType.CANCELLATION,
+        type: TransactionType.REVERSAL,
       },
     });
 
-    if (canceledTransaction) {
+    if (reversedTransaction) {
       throw new UnprocessableEntityException(
-        'The original transaction has already been canceled',
+        'The original transaction has already been reversed',
       );
     }
-  }
-
-  private async validateLastPurchaseTransaction(
-    originalTransaction: Transaction,
-  ): Promise<void> {
-    const lastPurchaseTransaction = await this.findLastPurchaseTransaction(
-      originalTransaction.walletId,
-    );
-
-    if (originalTransaction.id !== lastPurchaseTransaction.id) {
-      throw new UnprocessableEntityException(
-        'Cannot cancel the transaction as it is not the last purchase',
-      );
-    }
-  }
-
-  private async findLastPurchaseTransaction(
-    walletId: string,
-  ): Promise<Transaction> {
-    const transaction = await this.transactionRepository.findOne({
-      where: {
-        walletId: walletId,
-        type: TransactionType.PURCHASE,
-      },
-      order: {
-        createdAt: 'DESC',
-      },
-    });
-
-    if (!transaction) {
-      throw new NotFoundException(
-        `Last transaction of type ${TransactionType.PURCHASE} not found`,
-      );
-    }
-
-    return transaction;
   }
 }

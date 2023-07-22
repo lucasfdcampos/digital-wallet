@@ -8,6 +8,7 @@ import { CreateTransactionHandler } from './handler/create-transaction.handler';
 import { CreateTransactionService } from './services/create-transaction.service';
 import { UpdateWalletHandler } from './handler/update-wallet.handler';
 import { CancelTransactionService } from './services/cancel-transaction.service';
+import { ReverseTransactionService } from './services/reverse-transaction.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Transaction])],
@@ -19,6 +20,7 @@ import { CancelTransactionService } from './services/cancel-transaction.service'
     UpdateWalletHandler,
     CreateTransactionService,
     CancelTransactionService,
+    ReverseTransactionService,
   ],
   exports: [CreateTransactionHandler],
 })

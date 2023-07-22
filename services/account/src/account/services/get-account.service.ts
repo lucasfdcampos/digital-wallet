@@ -14,6 +14,7 @@ export class GetAccountService {
     try {
       return await this.accountRepository.findOneOrFail({
         where: { id },
+        relations: ['wallets'],
       });
     } catch (error) {
       throw new NotFoundException('Account does not exist');

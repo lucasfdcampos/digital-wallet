@@ -10,6 +10,7 @@ import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
 import { CancelTransactionService } from './services/cancel-transaction.service';
 import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
 import { TransactionType } from './enums/transaction-type.enum';
+import { ReverseTransactionService } from './services/reverse-transaction.service';
 
 @ApiTags('Transactions')
 @Controller('v1/transaction')
@@ -18,6 +19,7 @@ export class TransactionController {
     private readonly listTransactionService: ListTransactionService,
     private readonly getTransactionService: GetTransactionService,
     private readonly cancelTransactionService: CancelTransactionService,
+    private readonly reverseTransactionService: ReverseTransactionService,
   ) {}
 
   @Get()
@@ -56,7 +58,7 @@ export class TransactionController {
   })
   @ApiResponse({
     status: 404,
-    description: 'Purchase transaction not found',
+    description: 'Transaction does not exist',
     type: NotFoundSwagger,
   })
   @ApiResponse({
@@ -81,5 +83,30 @@ export class TransactionController {
   })
   async cancelTransaction(@Param() param: ValidIdUUidParam): Promise<void> {
     return await this.cancelTransactionService.execute(param.id);
+  }
+
+  @Post('reverse/:id')
+  @ApiOperation({ summary: 'Cancel a transaction' })
+  @ApiResponse({
+    status: 201,
+    description: 'Transaction data sent successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Transaction does not exist',
+    type: NotFoundSwagger,
+  })
+  @ApiResponse({
+    status: 422,
+    description: `Transaction type must be ${TransactionType.PURCHASE}`,
+    type: UnprocessableSwagger,
+  })
+  @ApiResponse({
+    status: 422,
+    description: 'The original transaction has already been reversed',
+    type: UnprocessableSwagger,
+  })
+  async reverseTransaction(@Param() param: ValidIdUUidParam): Promise<void> {
+    return await this.reverseTransactionService.execute(param.id);
   }
 }

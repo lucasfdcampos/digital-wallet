@@ -55,7 +55,7 @@ describe('AccountController', () => {
       // Arrange
       const createAccountDto: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@example.com',
+        email: 'john.doe@picpay.com',
       };
 
       jest.spyOn(createAccountService, 'execute').mockResolvedValue(newAccount);
@@ -74,7 +74,7 @@ describe('AccountController', () => {
       // Arrange
       const createAccountDto: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@example.com',
+        email: 'john.doe@picpay.com',
       };
 
       jest

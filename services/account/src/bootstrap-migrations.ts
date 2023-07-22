@@ -1,4 +1,4 @@
-import { getDataSource } from 'src/common/connections/datasource';
+import { getDataSource } from '@common/connections/datasource';
 
 export async function runMigrations() {
   const datasource = await getDataSource();
@@ -6,6 +6,6 @@ export async function runMigrations() {
   try {
     await datasource.runMigrations();
   } catch (error) {
-    throw new Error(error);
+    throw new Error('Error at run Migrations');
   }
 }

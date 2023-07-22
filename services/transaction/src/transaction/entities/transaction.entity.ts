@@ -61,12 +61,24 @@ export class Transaction {
   deletedAt: Date;
 
   @BeforeUpdate()
-  beforeUpdatesActions() {
+  beforeUpdatesActions?() {
     this.updatedAt = new Date();
   }
 
   @BeforeInsert()
-  beforeInsertsActions() {
+  beforeInsertsActions?() {
     this.createdAt = new Date();
+  }
+
+  constructor(transaction?: Partial<Transaction>) {
+    this.id = transaction?.id;
+    this.walletId = transaction?.walletId;
+    this.value = transaction?.value;
+    this.type = transaction?.type;
+    this.status = transaction?.status;
+    this.originalTransactionId = transaction?.originalTransactionId;
+    this.createdAt = transaction?.createdAt;
+    this.updatedAt = transaction?.updatedAt;
+    this.deletedAt = transaction?.deletedAt;
   }
 }

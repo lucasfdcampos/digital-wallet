@@ -5,10 +5,10 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, SelectQueryBuilder } from 'typeorm';
+import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { ListHistoryParamsDto } from '../dto/list-history-query-params.dto';
 import { History } from '../entities/history.entity';
-import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { Wallet } from '@wallet/entities/wallet.entity';
 
 @Injectable()
 export class ListHistoryService {
@@ -23,9 +23,38 @@ export class ListHistoryService {
     this.validatePeriod(query);
     await this.validateWallet(query.walletId);
 
-    const queryBuilder = this.createQueryBuilder(query);
-    this.queryDateIfAvailable(query, queryBuilder, 'createdAt', 'created_at');
-    return this.list(queryBuilder, query);
+    const { startDate, endDate } = this.getPropertiesFromParams(
+      query,
+      'createdAt',
+    );
+
+    const whereOptions = { walletId: query.walletId };
+    if (startDate && endDate) {
+      endDate.setHours(23, 59, 59);
+      whereOptions['createdAt'] = Between(startDate, endDate);
+    } else if (startDate) {
+      whereOptions['createdAt'] = MoreThanOrEqual(startDate);
+    } else if (endDate) {
+      endDate.setHours(23, 59, 59);
+      whereOptions['createdAt'] = LessThanOrEqual(endDate);
+    }
+
+    const [data, totalCount] = await this.historyRepository.findAndCount({
+      where: whereOptions,
+      skip: query.offset,
+      take: query.limit,
+      order: {
+        createdAt: query.sort,
+      },
+    });
+
+    return {
+      totalCount,
+      hasMore: this.hasMore(totalCount, query.limit, query.offset),
+      limit: query.limit,
+      offset: query.offset,
+      data,
+    };
   }
 
   private async validateWallet(walletId: string): Promise<void> {
@@ -54,53 +83,6 @@ export class ListHistoryService {
       );
   }
 
-  private createQueryBuilder(
-    query: ListHistoryParamsDto,
-  ): SelectQueryBuilder<History> {
-    return this.historyRepository
-      .createQueryBuilder('history')
-      .offset(query.offset)
-      .limit(query.limit)
-      .where('wallet_id = :walledId', { walledId: query.walletId })
-      .orderBy('created_at', query.sort);
-  }
-
-  private queryDateIfAvailable(
-    params: ListHistoryParamsDto,
-    queryBuilder: SelectQueryBuilder<any>,
-    paramBase: string,
-    column: string,
-  ): void {
-    const { startDate, endDate } = this.getPropertiesFromParams(
-      params,
-      paramBase,
-    );
-
-    if (startDate && endDate) {
-      endDate.setHours(23, 59, 59);
-      queryBuilder.andWhere(
-        `${queryBuilder.alias}.${column} BETWEEN :startDate AND :endDate`,
-        {
-          startDate,
-          endDate,
-        },
-      );
-    } else {
-      if (startDate) {
-        queryBuilder.andWhere(`${queryBuilder.alias}.${column} >= :startDate`, {
-          startDate,
-        });
-      }
-
-      if (endDate) {
-        endDate.setHours(23, 59, 59);
-        queryBuilder.andWhere(`${queryBuilder.alias}.${column} <= :endDate`, {
-          endDate,
-        });
-      }
-    }
-  }
-
   private getPropertiesFromParams(
     params: ListHistoryParamsDto,
     paramBase: string,
@@ -112,21 +94,6 @@ export class ListHistoryService {
       ? new Date(params[`${paramBase}Start`])
       : null;
     return { startDate, endDate };
-  }
-
-  private async list(
-    queryBuilder: SelectQueryBuilder<any>,
-    query: ListHistoryParamsDto,
-  ) {
-    const [data, totalCount] = await queryBuilder.getManyAndCount();
-
-    return {
-      totalCount,
-      hasMore: this.hasMore(totalCount, query.limit, query.offset),
-      limit: query.limit,
-      offset: query.offset,
-      data,
-    };
   }
 
   private hasMore(totalCount: number, limit: number, offset: number): boolean {

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { AbstractEntity } from 'src/common/entities/abstract.entity';
-import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { AbstractEntity } from '@common/entities/abstract.entity';
+import { Wallet } from '@wallet/entities/wallet.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'account' })
@@ -15,5 +15,15 @@ export class Account extends AbstractEntity {
 
   @OneToMany(() => Wallet, (wallet) => wallet.account)
   @ApiProperty({ type: () => Wallet, isArray: true })
-  wallets: Wallet[];
+  wallets?: Wallet[];
+
+  constructor(account?: Partial<Account>) {
+    super();
+    this.id = account?.id;
+    this.name = account?.name;
+    this.email = account?.email;
+    this.createdAt = account?.createdAt;
+    this.updatedAt = account?.updatedAt;
+    this.deletedAt = account?.deletedAt;
+  }
 }

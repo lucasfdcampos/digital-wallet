@@ -50,6 +50,11 @@ export class WalletController {
     description: 'Transaction data sent successfully',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
+  })
+  @ApiResponse({
     status: 404,
     description: 'Wallet does not exist',
     type: NotFoundSwagger,
@@ -77,6 +82,11 @@ export class WalletController {
     status: 200,
     description: 'Data from a wallet returned successfully',
     type: ShowWalletSwagger,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
   })
   @ApiResponse({
     status: 404,

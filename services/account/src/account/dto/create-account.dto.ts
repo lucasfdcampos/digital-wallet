@@ -4,14 +4,16 @@ import { IsEmail, IsNotEmpty, MaxLength } from 'class-validator';
 export class CreateAccountDto {
   @IsNotEmpty()
   @MaxLength(255)
-  @ApiProperty()
+  @ApiProperty({
+    example: 'John Doe',
+  })
   name: string;
 
   @IsNotEmpty()
   @IsEmail()
   @MaxLength(100)
   @ApiProperty({
-    example: 'john_doe@picpay.com',
+    example: 'johndoe@picpay.com',
   })
   email: string;
 }

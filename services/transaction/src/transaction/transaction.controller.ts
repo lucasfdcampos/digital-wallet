@@ -11,6 +11,7 @@ import { CancelTransactionService } from './services/cancel-transaction.service'
 import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
 import { TransactionType } from './enums/transaction-type.enum';
 import { ReverseTransactionService } from './services/reverse-transaction.service';
+import { BadRequestSwagger } from 'src/common/swagger/bad-request.swagger';
 
 @ApiTags('Transactions')
 @Controller('v1/transaction')
@@ -29,6 +30,11 @@ export class TransactionController {
     type: IndexTransactionSwagger,
     isArray: true,
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
+  })
   @ApiOperation({ summary: 'List transactions' })
   async index(@Query() query: ListTransactionParamsDto) {
     return await this.listTransactionService.execute(query);
@@ -40,6 +46,11 @@ export class TransactionController {
     status: 200,
     description: 'Data from a transaction returned successfully',
     type: ShowTransactionSwagger,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
   })
   @ApiResponse({
     status: 404,
@@ -55,6 +66,11 @@ export class TransactionController {
   @ApiResponse({
     status: 201,
     description: 'Transaction data sent successfully',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
   })
   @ApiResponse({
     status: 404,
@@ -86,10 +102,15 @@ export class TransactionController {
   }
 
   @Post('reverse/:id')
-  @ApiOperation({ summary: 'Cancel a transaction' })
+  @ApiOperation({ summary: 'Reverse a transaction' })
   @ApiResponse({
     status: 201,
     description: 'Transaction data sent successfully',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
   })
   @ApiResponse({
     status: 404,

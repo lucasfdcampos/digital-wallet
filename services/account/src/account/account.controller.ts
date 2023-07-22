@@ -8,6 +8,8 @@ import { BadRequestSwagger } from 'src/common/swagger/bad-request.swagger';
 import { ShowAccountSwagger } from './swagger/show-account.swagger';
 import { ValidIdUUidParam } from 'src/common/dto/valid-id-uuid-param';
 import { Account } from './entities/account.entity';
+import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
+import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
 
 @ApiTags('Accounts')
 @Controller('v1/account')
@@ -29,7 +31,11 @@ export class AccountController {
     description: 'Invalid params',
     type: BadRequestSwagger,
   })
-  @ApiResponse({ status: 422, description: 'Email already exists' })
+  @ApiResponse({
+    status: 422,
+    description: 'Email already exists',
+    type: UnprocessableSwagger,
+  })
   async create(@Body() createAccountDto: CreateAccountDto): Promise<Account> {
     return await this.createAccountService.execute(createAccountDto);
   }
@@ -41,7 +47,16 @@ export class AccountController {
     description: 'Data from an account returned successfully',
     type: ShowAccountSwagger,
   })
-  @ApiResponse({ status: 404, description: 'Account does not exist' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Account does not exist',
+    type: NotFoundSwagger,
+  })
   async findOne(@Param() param: ValidIdUUidParam): Promise<Account> {
     return await this.getAccountservice.execute(param.id);
   }

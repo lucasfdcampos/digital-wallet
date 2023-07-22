@@ -8,6 +8,7 @@ import { ShowHistorySwagger } from './swagger/show-history.swagger';
 import { IndexHistorySwagger } from './swagger/index-history.swagger';
 import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
 import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
+import { BadRequestSwagger } from 'src/common/swagger/bad-request.swagger';
 
 @ApiTags('Historic')
 @Controller('v1/history')
@@ -24,6 +25,11 @@ export class HistoryController {
     description: 'History list returned successfully',
     type: IndexHistorySwagger,
     isArray: true,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
   })
   @ApiResponse({
     status: 404,
@@ -45,6 +51,11 @@ export class HistoryController {
     status: 200,
     description: 'Data from a history returned successfully',
     type: ShowHistorySwagger,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid params',
+    type: BadRequestSwagger,
   })
   @ApiResponse({
     status: 404,

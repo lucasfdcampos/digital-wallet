@@ -4,12 +4,12 @@ import { CreateAccountService } from './services/create-account.service';
 import { GetAccountService } from './services/get-account.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAccountSwagger } from './swagger/create-account.swagger';
-import { BadRequestSwagger } from 'src/common/swagger/bad-request.swagger';
+import { BadRequestSwagger } from '@common/swagger/bad-request.swagger';
 import { ShowAccountSwagger } from './swagger/show-account.swagger';
-import { ValidIdUUidParam } from 'src/common/dto/valid-id-uuid-param';
+import { ValidIdUUidParam } from '@common/dto/valid-id-uuid-param';
 import { Account } from './entities/account.entity';
-import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
-import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
+import { UnprocessableSwagger } from '@common/swagger/unprocessable-swagger';
+import { NotFoundSwagger } from '@common/swagger/not-found.swagger';
 
 @ApiTags('Accounts')
 @Controller('v1/account')

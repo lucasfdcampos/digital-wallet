@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { createHash } from 'crypto';
-import { Account } from 'src/account/entities/account.entity';
-import { AbstractEntity } from 'src/common/entities/abstract.entity';
+import { Account } from '@account/entities/account.entity';
+import { AbstractEntity } from '@common/entities/abstract.entity';
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { v4 } from 'uuid';
 
@@ -11,9 +11,9 @@ export class Wallet extends AbstractEntity {
   @ApiProperty()
   accountId: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ name: 'account_number', type: 'varchar' })
   @ApiProperty()
-  account_number: string;
+  accountNumber: string;
 
   @Column({ type: 'decimal', default: 0 })
   @ApiProperty()
@@ -28,14 +28,24 @@ export class Wallet extends AbstractEntity {
   account: Account;
 
   @BeforeInsert()
-  setDefaultValueForIsEnabled() {
+  setDefaultValueForIsEnabled?() {
     this.isEnabled = true;
   }
 
   @BeforeInsert()
-  generateAccountNumber() {
+  generateAccountNumber?() {
     const combinedValue = `${v4()}-${this.accountId}-${Date.now()}`;
     const hash = createHash('sha256').update(combinedValue).digest('hex');
-    this.account_number = hash.replace(/\D/g, '').slice(0, 7);
+    this.accountNumber = hash.replace(/\D/g, '').slice(0, 7);
+  }
+
+  constructor(wallet?: Partial<Wallet>) {
+    super();
+    this.id = wallet?.id;
+    this.accountId = wallet?.accountId;
+    this.accountNumber = wallet?.accountNumber;
+    this.amount = wallet?.amount;
+    this.isEnabled = wallet?.isEnabled;
+    this.account = wallet?.account;
   }
 }

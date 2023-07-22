@@ -5,8 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GetTransactionService } from './services/get-transaction.service';
 import { ListTransactionService } from './services/list-transaction.service';
 import { CreateTransactionHandler } from './handler/create-transaction.handler';
-import { CreateTransactionService } from './services/create-transaction.service';
-import { UpdateWalletHandler } from './handler/update-wallet.handler';
 import { CancelTransactionService } from './services/cancel-transaction.service';
 import { ReverseTransactionService } from './services/reverse-transaction.service';
 
@@ -17,8 +15,6 @@ import { ReverseTransactionService } from './services/reverse-transaction.servic
     GetTransactionService,
     ListTransactionService,
     CreateTransactionHandler,
-    UpdateWalletHandler,
-    CreateTransactionService,
     CancelTransactionService,
     ReverseTransactionService,
   ],

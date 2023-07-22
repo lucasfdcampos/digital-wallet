@@ -7,8 +7,8 @@ import { Transaction } from '../entities/transaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TransactionType } from '../enums/transaction-type.enum';
-import { ProducerService } from 'src/kafka/producer.service';
-import { KafkaTopics } from 'src/common/enums/kafka-topics.enum';
+import { ProducerService } from '../../kafka/producer.service';
+import { KafkaTopics } from '@common/enums/kafka-topics.enum';
 
 @Injectable()
 export class CancelTransactionService {

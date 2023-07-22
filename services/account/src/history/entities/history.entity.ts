@@ -1,7 +1,7 @@
-import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { Wallet } from '@wallet/entities/wallet.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { AbstractEntity } from 'src/common/entities/abstract.entity';
-import { HistoryType } from 'src/common/enums/history-type.enum';
+import { AbstractEntity } from '@common/entities/abstract.entity';
+import { HistoryType } from '@common/enums/history-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'history' })
@@ -29,4 +29,15 @@ export class History extends AbstractEntity {
   @ManyToOne(() => Wallet, (wallet) => wallet.id)
   @JoinColumn({ name: 'wallet_id', referencedColumnName: 'id' })
   wallet: Wallet;
+
+  constructor(history?: Partial<History>) {
+    super();
+    this.id = history?.id;
+    this.walletId = history?.walletId;
+    this.oldAmount = history?.oldAmount;
+    this.newAmount = history?.newAmount;
+    this.type = history?.type;
+    this.transactionId = history?.transactionId;
+    this.wallet = history?.wallet;
+  }
 }

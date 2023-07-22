@@ -7,8 +7,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Wallet } from '../entities/wallet.entity';
 import { Repository } from 'typeorm';
 import { SendTransactionDto } from '../dto/send-transaction.dto';
-import { KafkaTopics } from 'src/common/enums/kafka-topics.enum';
-import { ProducerService } from 'src/kafka/producer.service';
+import { KafkaTopics } from '@common/enums/kafka-topics.enum';
+import { ProducerService } from '@kafka/producer.service';
 import { TransactionType } from '../enums/transaction-type.enum';
 
 @Injectable()

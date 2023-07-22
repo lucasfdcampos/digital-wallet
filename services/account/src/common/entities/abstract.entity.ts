@@ -37,12 +37,12 @@ export abstract class AbstractEntity {
   deletedAt: Date;
 
   @BeforeUpdate()
-  beforeUpdatesActions() {
+  beforeUpdatesActions?() {
     this.updatedAt = new Date();
   }
 
   @BeforeInsert()
-  beforeInsertsActions() {
+  beforeInsertsActions?() {
     this.createdAt = new Date();
   }
 }

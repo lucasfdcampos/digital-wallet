@@ -6,6 +6,6 @@ export async function runMigrations() {
   try {
     await datasource.runMigrations();
   } catch (error) {
-    throw new Error(error);
+    throw new Error('Error at run Migrations');
   }
 }

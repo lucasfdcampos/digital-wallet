@@ -4,12 +4,12 @@ import { CreateWalletService } from './services/create-wallet.service';
 import { Wallet } from './entities/wallet.entity';
 import { GetWalletService } from './services/get-wallet.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidIdUUidParam } from 'src/common/dto/valid-id-uuid-param';
+import { ValidIdUUidParam } from '@common/dto/valid-id-uuid-param';
 import { CreateWalletSwagger } from './swagger/create-wallet.swagger';
-import { BadRequestSwagger } from 'src/common/swagger/bad-request.swagger';
+import { BadRequestSwagger } from '@common/swagger/bad-request.swagger';
 import { ShowWalletSwagger } from './swagger/show-wallet.swagger';
-import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
-import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
+import { NotFoundSwagger } from '@common/swagger/not-found.swagger';
+import { UnprocessableSwagger } from '@common/swagger/unprocessable-swagger';
 import { SendTransactionsService } from './services/send-transactions.service';
 import { SendTransactionDto } from './dto/send-transaction.dto';
 

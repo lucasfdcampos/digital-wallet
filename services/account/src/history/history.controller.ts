@@ -1,14 +1,14 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ValidIdUUidParam } from 'src/common/dto/valid-id-uuid-param';
+import { ValidIdUUidParam } from '@common/dto/valid-id-uuid-param';
 import { GetHistoryService } from './services/get-history.service';
 import { ListHistoryParamsDto } from './dto/list-history-query-params.dto';
 import { ListHistoryService } from './services/list-history.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ShowHistorySwagger } from './swagger/show-history.swagger';
 import { IndexHistorySwagger } from './swagger/index-history.swagger';
-import { NotFoundSwagger } from 'src/common/swagger/not-found.swagger';
-import { UnprocessableSwagger } from 'src/common/swagger/unprocessable-swagger';
-import { BadRequestSwagger } from 'src/common/swagger/bad-request.swagger';
+import { NotFoundSwagger } from '@common/swagger/not-found.swagger';
+import { UnprocessableSwagger } from '@common/swagger/unprocessable-swagger';
+import { BadRequestSwagger } from '@common/swagger/bad-request.swagger';
 
 @ApiTags('Historic')
 @Controller('v1/history')

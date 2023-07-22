@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { createHash } from 'crypto';
 import { Account } from 'src/account/entities/account.entity';
 import { AbstractEntity } from 'src/common/entities/abstract.entity';
@@ -7,15 +8,19 @@ import { v4 } from 'uuid';
 @Entity({ name: 'wallet' })
 export class Wallet extends AbstractEntity {
   @Column({ name: 'account_id' })
+  @ApiProperty()
   accountId: string;
 
   @Column({ type: 'varchar' })
+  @ApiProperty()
   account_number: string;
 
   @Column({ type: 'decimal', default: 0 })
+  @ApiProperty()
   amount: number;
 
   @Column({ name: 'is_enabled', type: 'boolean', default: true })
+  @ApiProperty()
   isEnabled: boolean;
 
   @ManyToOne(() => Account, (account) => account.id)

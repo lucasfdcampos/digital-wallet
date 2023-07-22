@@ -10,12 +10,12 @@ export class SendTransactionDto {
   })
   type: TransactionType;
 
+  @IsNumber()
+  @Min(1)
+  @IsNotEmpty()
   @ApiProperty({
     description: 'value of the transaction',
     minLength: 1,
   })
-  @IsNumber()
-  @Min(1)
-  @IsNotEmpty()
   value: number;
 }

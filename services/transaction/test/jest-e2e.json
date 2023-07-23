@@ -1,9 +1,18 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "rootDir": "../",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "roots": ["<rootDir>"],
+  "modulePaths": ["<rootDir>"],
+  "moduleDirectories": ["node_modules"],
+  "setupFiles": ["dotenv/config"],
+  "moduleNameMapper": {
+    "^@common/(.*)": "<rootDir>/src/common/$1",
+    "^@kafka/(.*)": "<rootDir>/src/kafka/$1",
+    "^@transaction/(.*)": "<rootDir>/src/transaction/$1"
   }
 }

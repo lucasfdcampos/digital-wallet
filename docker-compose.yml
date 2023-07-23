@@ -85,35 +85,35 @@ services:
       - transaction-db
       - kafka
 
-  # kong:
-  #   container_name: kong
-  #   build:
-  #     context: services/kong
-  #     dockerfile: Dockerfile
-  #     target: development
-  #   user: "kong"
-  #   environment:
-  #     KONG_DATABASE: 'off'
-  #     KONG_DECLARATIVE_CONFIG: /kong/declarative/kong.yaml
-  #     KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
-  #   networks:
-  #     - picpay-net
-  #   ports:
-  #     - "8000:8000/tcp"
-  #     - "127.0.0.1:8001:8001/tcp"
-  #     - "8443:8443/tcp"
-  #     - "127.0.0.1:8444:8444/tcp"
-  #   volumes:
-  #     - $PWD/kong:/kong/declarative/
-  #   healthcheck:
-  #     test: ["CMD", "kong", "health"]
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 10
-  #   restart: on-failure
-  #   deploy:
-  #     restart_policy:
-  #       condition: on-failure
+  donkey-kong:
+    container_name: donkey-kong
+    build:
+      context: services/kong
+      dockerfile: Dockerfile
+      target: development
+    user: "kong"
+    environment:
+      KONG_DATABASE: 'off'
+      KONG_DECLARATIVE_CONFIG: /kong/declarative/kong.yaml
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+    networks:
+      - picpay-net
+    ports:
+      - "8000:8000/tcp"
+      - "127.0.0.1:8001:8001/tcp"
+      - "8443:8443/tcp"
+      - "127.0.0.1:8444:8444/tcp"
+    volumes:
+      - $PWD/services/kong:/kong/declarative/
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    restart: on-failure
+    deploy:
+      restart_policy:
+        condition: on-failure
   
   zook:
     image: confluentinc/cp-zookeeper:latest

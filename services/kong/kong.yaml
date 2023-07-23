@@ -1,0 +1,177 @@
+_format_version: "1.1"
+services:
+  - name: Account
+    host: account-ms
+    port: 3000
+    protocol: http
+    connect_timeout: 60000
+    read_timeout: 60000
+    write_timeout: 60000
+    retries: 5
+    routes:
+      - id: "fc5e3483-6a03-4da3-addc-0bd0b66e4c25"
+        methods:
+          - "POST"
+        paths:
+          - "/v1/account"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "f1d8c5d1-0b7b-4e5b-b073-23f756d5bbb8"
+        methods:
+          - "GET"
+        paths:
+          - "/v1/account/"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "39e8c315-82dc-48f2-b9c2-a171313e280f"
+        methods:
+          - "POST"
+        paths:
+          - "/v1/wallet"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+        plugins:
+          - name: "rate-limiting"
+            config:
+              second: 4
+              policy: "local"
+      - id: "53efffa8-0b7a-43fa-a3e2-0f69931e62b2"
+        methods:
+          - "GET"
+          - "POST"
+        paths:
+          - "/v1/wallet/"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "7312a6df-51b2-4b38-8bb6-6c47560e2302"
+        methods:
+          - "GET"
+        paths:
+          - "/v1/history/"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "dce7110a-5737-4d97-a6f8-159867a66609"
+        methods:
+          - "GET"
+        paths:
+          - "/v1/history"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+
+  - name: Transaction
+    host: transaction-ms
+    port: 3010
+    protocol: http
+    connect_timeout: 60000
+    read_timeout: 60000
+    write_timeout: 60000
+    retries: 5
+    routes:
+      - id: "8852d967-9dc3-463d-a0fe-f2b8b388188b"
+        methods:
+          - "GET"
+        paths:
+          - "/v1/transaction"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "64b281aa-2493-4071-8df0-24da2886ecf8"
+        methods:
+          - "GET"
+        paths:
+          - "/v1/transaction/"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "c798acb8-99d2-4e31-a9a5-9283f94528eb"
+        methods:
+          - "POST"
+        paths:
+          - "/v1/transaction/cancel/"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true
+      - id: "de344c79-fe20-403d-a0b8-37893d8a2fbb"
+        methods:
+          - "POST"
+        paths:
+          - "/v1/transaction/reverse/"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true

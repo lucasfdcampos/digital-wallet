@@ -7,9 +7,10 @@ import { ListTransactionService } from './services/list-transaction.service';
 import { CreateTransactionHandler } from './handler/create-transaction.handler';
 import { CancelTransactionService } from './services/cancel-transaction.service';
 import { ReverseTransactionService } from './services/reverse-transaction.service';
+import { KafkaModule } from '@kafka/kafka.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Transaction])],
+  imports: [TypeOrmModule.forFeature([Transaction]), KafkaModule],
   controllers: [TransactionController],
   providers: [
     GetTransactionService,

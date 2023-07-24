@@ -13,6 +13,7 @@
   "moduleNameMapper": {
     "^@common/(.*)": "<rootDir>/src/common/$1",
     "^@kafka/(.*)": "<rootDir>/src/kafka/$1",
-    "^@transaction/(.*)": "<rootDir>/src/transaction/$1"
+    "^@transaction/(.*)": "<rootDir>/src/transaction/$1",
+    "^@audit/(.*)": "<rootDir>/src/audit/$1"
   }
 }

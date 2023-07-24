@@ -5,7 +5,9 @@
 /services/*/node_modules
 
 # Docker
-/.docker
+/.docker/account-db
+/.docker/transaction-db
+/.docker/mongo-data
 
 # Logs
 logs

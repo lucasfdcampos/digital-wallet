@@ -2,11 +2,13 @@
   <img src="./logo.svg" alt="PicPay Logo">
   <p align="center">
   <a href="https://www.linkedin.com/in/lucasfdcampos/">
-    <img alt="Made by" src="https://img.shields.io/badge/made%20by-Lucas%20Campos-%#238662">
+    <img alt="Made by" src="https://img.shields.io/badge/made%20by-Lucas%20Campos-%#00e579">
   </a>
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lucasfdcampos/picpay-wallet-challenge?color=%#238662">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasfdcampos/picpay-wallet-challenge?color=%#238662">
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasfdcampos/picpay-wallet-challenge?color=%#238662">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lucasfdcampos/gazin-tech-potential-crud?color=%#00e579">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasfdcampos/gazin-tech-potential-crud?color=%#00e579">
+  <a href="https://github.com/lucasfdcampos/gazin-tech-potential-crud/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasfdcampos/gazin-tech-potential-crud?color=%#00e579">
+  </a>
   </p>
 </div>
 
@@ -95,9 +97,7 @@ docker-compose up -d
 
 Pode ser importado as collections do Insomnia (<span style="color:gray">made by Kong</span>) ou utilizar os comandos diretamente no terminal. É necessário ter o curl instalado!
 
-
-<a href="https://insomnia.rest/run/?label=&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2Fpicpay-wallet-challenge%2Fmaster%2FInsomnia.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
-
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=PicPay&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2Fpicpay-wallet-challenge%2Fmaster%2Fpicpay_insomnia.json)
 
 
 #### Criando _account_

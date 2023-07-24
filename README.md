@@ -68,11 +68,11 @@ A premissa é que o Account seja um serviço mais “voltado ao cliente”, onde
 
 **Cancelamento**
 
-Coloquei como regra para o Cancelamento que faça apenas para _transactions_ do tipo ``_PURCHASE_`` (compra) e somente quando for último registro de compra. Assim ele gera um registro de _transaction_ do tipo ``_CANCELLATION_`` e retorna o valor ao saldo da conta.
+Coloquei como regra para o Cancelamento que faça apenas para _transactions_ do tipo ``PURCHASE`` (compra) e somente quando for último registro de compra. Assim ele gera um registro de _transaction_ do tipo ``CANCELLATION`` e retorna o valor ao saldo da conta.
 
 **Estorno**
 
-O Estorno contém a mesma regra, porém é possível estornar qualquer transação do tipo ``_PURCHASE_``, sem ser a ultima necessariamente.
+O Estorno contém a mesma regra, porém é possível estornar qualquer transação do tipo ``PURCHASE``, sem ser a ultima necessariamente.
 
 ## Executando
 

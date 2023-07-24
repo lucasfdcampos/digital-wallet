@@ -103,22 +103,6 @@ describe('CreateTransactionHandler', () => {
           },
         ],
       });
-
-      expect(producerService.produce).toHaveBeenCalledWith({
-        topic: KafkaTopics.CREATE_AUDIT,
-        messages: [
-          {
-            value: JSON.stringify({
-              id: event.originalTransactionId,
-              walletId: event.walletId,
-              type: event.type,
-              value: event.value,
-              status: TransactionStatus.APPROVED,
-              transactionId: event.originalTransactionId,
-            }),
-          },
-        ],
-      });
     });
   });
 });

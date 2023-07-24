@@ -15,7 +15,7 @@ export class CreateTransactionHandler {
     private readonly producerService: ProducerService,
   ) {}
 
-  eventname = KafkaTopics.CREATE_TRANSACTION;
+  eventname = KafkaTopics.UPDATE_WALLET_AMOUNT;
 
   async execute(event: TransactionCreated): Promise<void> {
     const transaction = await this.createTransaction(event);
@@ -30,6 +30,22 @@ export class CreateTransactionHandler {
             value: event.value,
             status: TransactionStatus.APPROVED,
             transactionId: transaction.id,
+          }),
+        },
+      ],
+    });
+
+    await this.producerService.produce({
+      topic: KafkaTopics.CREATE_AUDIT,
+      messages: [
+        {
+          value: JSON.stringify({
+            id: transaction.id,
+            walletId: event.walletId,
+            value: event.value,
+            type: event.type,
+            status: TransactionStatus.APPROVED,
+            createdAt: transaction.createdAt,
           }),
         },
       ],

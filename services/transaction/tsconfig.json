@@ -23,7 +23,8 @@
     "paths": {
       "@common/*": ["src/common/*"],
       "@kafka/*": ["src/kafka/*"],
-      "@transaction/*": ["src/transaction/*"]
+      "@transaction/*": ["src/transaction/*"],
+      "@audit/*": ["src/audit/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

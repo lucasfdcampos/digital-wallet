@@ -175,3 +175,18 @@ services:
         https_redirect_status_code: 426
         request_buffering: true
         response_buffering: true
+      - id: "ae06c187-4960-4e50-9d5b-1be8fffaea14"
+        methods:
+          - "GET"
+        paths:
+          - "/v1/audit"
+        path_handling: "v1"
+        preserve_host: false
+        protocols:
+          - "http"
+          - "https"
+        regex_priority: 0
+        strip_path: false
+        https_redirect_status_code: 426
+        request_buffering: true
+        response_buffering: true

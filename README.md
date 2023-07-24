@@ -199,9 +199,16 @@ DB_TEST_DATABASE=transaction
 MONGO_URL_TEST=mongodb://admin:example@localhost/db_audit?authSource=db_audit
 ```
 
+#### _Account_
 
 ```bash
-make run-unit-tests
+make test-account
+```
+
+#### _Transaction_
+
+```bash
+make test-transaction
 ```
 
 ## Tecnologias
@@ -221,6 +228,13 @@ Procurei ao máximo deixar as classes e métodos com atribuições únicas e com
 #### Microservice
 Arquitetura escolhida pela escabilidade, modularidade, elasticidade, tolerância a falhas, testabilidade e confiabilidade.
 
+#### Apache Kafka
+Garantia de entrega: O Kafka oferece segurança na entrega de mensagens, evitando perdas de dados e garantindo consistência.
+
+Escalabilidade: Mesmo num projeto pequeno como este, o Kafka possibilita o crescimento do sistema de forma ágil e eficiente, suportando maior volume de dados conforme necessário.
+
+Integração e Flexibilidade: Com APIs e suporte a várias linguagens, o Kafka se integra facilmente a diferentes componentes e tecnologias, oferecendo flexibilidade para a evolução do projeto.
+
 #### Api-Gateway
 Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado.
 
@@ -228,6 +242,8 @@ Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para dir
 Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou folharem devido a problemas de rede. _Event-Driven_ é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
 
 Devido a esta característica, _microservices_ "casam" bem como uma arquitetura baseada em eventos, pois os erros de rede são drasticamente diminuídos e tudo acontece de forma assíncrona.
+
+
 
 ## Swagger
 

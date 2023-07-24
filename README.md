@@ -60,7 +60,7 @@ Este serviço recebe um evento de atualizações de saldo e que também cria his
 
 ### Transaction
 
-Esse serviço é responsável por receber e procesar eventos de transações que foram enviadas pelo Account e também criar transações de cancelamento e estorno. O _transaction_ também contém listagem de transações e de auditoria. 
+Esse serviço é responsável por receber e processar eventos de transações que foram enviadas pelo Account e também criar transações de cancelamento e estorno. O _transaction_ também contém listagem de transações e de auditoria. 
 
 Todo envio de eventos são enviados pelo Apache Kafka e salvos no banco de dados PostgreSQL. A cada transacão recebida é gerado uma auditoria com MongoDB.
 
@@ -68,17 +68,17 @@ A premissa é que o Account seja um serviço mais “voltado ao cliente”, onde
 
 **Cancelamento**
 
-Coloquei como regra para o Cancelamento que faça apenas para _transactions_ do tipo _PURCHASE_ (compra) e somente quando for último registro de compra. Assim ele gera um registro de _transaction_ do tipo _CANCELLATION_ e retorna o valor ao saldo da conta.
+Coloquei como regra para o Cancelamento que faça apenas para _transactions_ do tipo ``_PURCHASE_`` (compra) e somente quando for último registro de compra. Assim ele gera um registro de _transaction_ do tipo ``_CANCELLATION_`` e retorna o valor ao saldo da conta.
 
 **Estorno**
 
-O Estorno contém a mesma regra, porém é possível estornar qualquer transação do tipo _PURCHASE_, sem ser a ultima necessariamente.
+O Estorno contém a mesma regra, porém é possível estornar qualquer transação do tipo ``_PURCHASE_``, sem ser a ultima necessariamente.
 
 ## Executando
 
 ### Makefile
 
-O comando abaixo irá subir todos os serviços Docker necessários:
+O comando abaixo irá subir todos os serviços _Docker_ necessários:
 
 ```bash
 make up-all
@@ -95,7 +95,7 @@ docker-compose up -d
 
 ### Utilizando as APIs
 
-Pode ser importado as collections do Insomnia (<span style="color:gray">made by Kong</span>) ou utilizar os comandos diretamente no terminal. É necessário ter o curl instalado!
+Pode ser importado as collections do _Insomnia_ (``made by Kong``) ou utilizar os comandos diretamente no terminal. É necessário ter o curl instalado!
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=PicPay&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2Fpicpay-wallet-challenge%2Fmaster%2Fpicpay_insomnia.json)
 
@@ -190,7 +190,7 @@ curl --request POST \
 
 ## Testes
 Para os testes é necessário passar algumas variáveis ambiente para conexão com PostgreSQL e MongoDB, mas já enviei preenchidas. Estes são encontrados em 
-``services/*/.env`` . **Não é correto enviar as secrets** - mas por ser um projeto challenge acabei enviando.
+``services/*/.env`` . **Não é correto enviar as secrets** - mas por ser um projeto _challenge_ acabei enviando.
 ```env
 DB_TEST_HOST=localhost
 DB_TEST_USER=admin
@@ -216,22 +216,22 @@ make run-unit-tests
 ## Escolhas técnicas
 
 #### Clean code
-Procurei ao máximo deixar as classes e métodos com atribuições únicas e com escopo reduzido, com apenas uma única funcionalidade e objetivo. O NestJs contém um pattern padrão que contribui para esta premissa.
+Procurei ao máximo deixar as classes e métodos com atribuições únicas e com escopo reduzido, com apenas uma única funcionalidade e objetivo. O NestJs contém um _pattern_  que contribui para esta premissa.
 
 #### Microservice
 Arquitetura escolhida pela escabilidade, modularidade, elasticidade, tolerância a falhas, testabilidade e confiabilidade.
 
 #### Api-Gateway
-Uma Api-Gateway entrega muitas vantagens, neste pequeno projeto serve para direcionar as requests para o microservice adequado.
+Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado.
 
 #### Event-Driven
-Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou folharem devido a problemas de rede. Event-Driven é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
+Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou folharem devido a problemas de rede. _Event-Driven_ é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
 
 Devido a esta característica, _microservices_ "casam" bem como uma arquitetura baseada em eventos, pois os erros de rede são drasticamente diminuídos e tudo acontece de forma assíncrona.
 
 ## Swagger
 
-A documentação _Swagger_ está divida entre os _microservices_
+A documentação _Swagger_ está divida entre os microserviços
 
 #### _Account_
 ```bash

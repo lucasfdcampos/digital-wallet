@@ -4,10 +4,10 @@
   <a href="https://www.linkedin.com/in/lucasfdcampos/">
     <img alt="Made by" src="https://img.shields.io/badge/made%20by-Lucas%20Campos-%19F78F">
   </a>
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lucasfdcampos/gazin-tech-potential-crud?color=%19F78F">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasfdcampos/gazin-tech-potential-crud?color=%19F78F">
-  <a href="https://github.com/lucasfdcampos/gazin-tech-potential-crud/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasfdcampos/gazin-tech-potential-crud?color=%19F78F">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lucasfdcampos/picpay-wallet-challenge?color=%19F78F">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasfdcampos/picpay-wallet-challenge?color=%19F78F">
+  <a href="https://github.com/lucasfdcampos/picpay-wallet-challenge/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasfdcampos/picpay-wallet-challenge?color=%19F78F">
   </a>
   </p>
 </div>

@@ -141,7 +141,7 @@ describe('TransactionController', () => {
       expect(getTransactionService.execute).toHaveBeenCalledWith('1');
     });
 
-    it('should throw an exception if transaction doest not exists', async () => {
+    it('should throw an exception if transaction does not exists', async () => {
       // Arrange
       jest.spyOn(getTransactionService, 'execute').mockResolvedValue(undefined);
 

@@ -128,6 +128,23 @@ describe('WalletController', () => {
         sendTransactionDto,
       );
     });
+
+    it('should throw an exception if wallet does not exist', async () => {
+      // Arrange
+      const sendTransactionDto: SendTransactionDto = {
+        type: TransactionType.DEPOSIT,
+        value: 100,
+      };
+
+      jest
+        .spyOn(sendTransactionsService, 'execute')
+        .mockRejectedValueOnce(new Error());
+
+      // Act and Assert
+      await expect(
+        walletController.sendTransactionData({ id: '999' }, sendTransactionDto),
+      ).rejects.toThrowError();
+    });
   });
 
   describe('findOne', () => {

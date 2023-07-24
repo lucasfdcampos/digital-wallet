@@ -180,19 +180,20 @@ describe('WalletController (E2E)', () => {
 
   describe('[POST] /v1/wallet/:id/transactions', () => {
     let johnDoeWalletMock: Wallet;
+    let johnDoeDisabledWalletMock: Wallet;
 
     beforeEach(async () => {
       const johnDoeWallet = await testConnection.getRepository(Wallet).findOne({
         where: { accountId: johnDoeAccountMock.id },
       });
 
+      const createWalletDto: CreateWalletDto = {
+        accountId: johnDoeAccountMock.id,
+      };
+
       if (johnDoeWallet) {
         johnDoeWalletMock = johnDoeWallet;
       } else {
-        const createWalletDto: CreateWalletDto = {
-          accountId: johnDoeAccountMock.id,
-        };
-
         const createWalletJohnDoe = testConnection
           .getRepository(Wallet)
           .create(createWalletDto);
@@ -201,6 +202,19 @@ describe('WalletController (E2E)', () => {
           .getRepository(Wallet)
           .save(createWalletJohnDoe);
       }
+
+      const createDisabledWalletJohnDoe = testConnection
+        .getRepository(Wallet)
+        .create(createWalletDto);
+
+      johnDoeDisabledWalletMock = await testConnection
+        .getRepository(Wallet)
+        .save(createDisabledWalletJohnDoe);
+
+      johnDoeDisabledWalletMock.isEnabled = false;
+      await testConnection
+        .getRepository(Wallet)
+        .save(johnDoeDisabledWalletMock);
     });
 
     it('should send transaction data to Kafka', async () => {
@@ -247,6 +261,18 @@ describe('WalletController (E2E)', () => {
 
       await request(app.getHttpServer())
         .post(`/v1/wallet/${johnDoeWalletMock.id}/transactions`)
+        .send(sendTransactionDto)
+        .expect(HttpStatus.UNPROCESSABLE_ENTITY);
+    });
+
+    it('should return 422 if wallet is not enabled', async () => {
+      const sendTransactionDto: SendTransactionDto = {
+        type: TransactionType.DEPOSIT,
+        value: 100,
+      };
+
+      await request(app.getHttpServer())
+        .post(`/v1/wallet/${johnDoeDisabledWalletMock.id}/transactions`)
         .send(sendTransactionDto)
         .expect(HttpStatus.UNPROCESSABLE_ENTITY);
     });

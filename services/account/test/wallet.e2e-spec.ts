@@ -79,7 +79,7 @@ describe('WalletController (E2E)', () => {
     moduleFixture.get<Repository<History>>(getRepositoryToken(History));
 
     const johnDoeAccount = await testConnection.getRepository(Account).findOne({
-      where: { email: 'john.doe@picpay.com' },
+      where: { email: 'john.doe2@picpay.com' },
     });
 
     if (johnDoeAccount) {
@@ -87,7 +87,7 @@ describe('WalletController (E2E)', () => {
     } else {
       const createAccountDto: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe2@picpay.com',
       };
 
       const createAccountJohnDoe = testConnection
@@ -103,6 +103,35 @@ describe('WalletController (E2E)', () => {
   });
 
   afterAll(async () => {
+    const johnDoeAccount = await testConnection.getRepository(Account).findOne({
+      where: { email: 'john.doe2@picpay.com' },
+    });
+
+    if (johnDoeAccount) {
+      const johnDoeWallets = await testConnection.getRepository(Wallet).find({
+        where: {
+          accountId: johnDoeAccount.id,
+        },
+      });
+
+      await Promise.all(
+        johnDoeWallets.map(async (wallet) => {
+          await testConnection.query(
+            'DELETE FROM history WHERE wallet_id = $1',
+            [wallet.id],
+          );
+        }),
+      );
+
+      await testConnection.query('DELETE FROM wallet WHERE account_id = $1', [
+        johnDoeAccount.id,
+      ]);
+
+      await testConnection.query('DELETE FROM account WHERE id = $1', [
+        johnDoeAccount.id,
+      ]);
+    }
+
     await app.close();
     await testConnection.close();
   });

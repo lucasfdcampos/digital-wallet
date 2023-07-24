@@ -46,12 +46,12 @@ describe('AccountController (E2E)', () => {
     moduleFixture.get<Repository<Account>>(getRepositoryToken(Account));
 
     moduleFixture.get<Repository<Wallet>>(getRepositoryToken(Wallet));
+  });
 
+  afterAll(async () => {
     const johnDoeAccount = await testConnection.getRepository(Account).findOne({
-      where: { email: 'john.doe@picpay.com' },
+      where: { email: 'john.doe1@picpay.com' },
     });
-
-    console.log(johnDoeAccount);
 
     if (johnDoeAccount) {
       const johnDoeWallets = await testConnection.getRepository(Wallet).find({
@@ -77,9 +77,7 @@ describe('AccountController (E2E)', () => {
         johnDoeAccount.id,
       ]);
     }
-  });
 
-  afterAll(async () => {
     await app.close();
     await testConnection.close();
   });
@@ -88,7 +86,7 @@ describe('AccountController (E2E)', () => {
     it('should create a new account', async () => {
       const createAccountDto: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe1@picpay.com',
       };
 
       const response = await request(app.getHttpServer())
@@ -107,7 +105,7 @@ describe('AccountController (E2E)', () => {
     it('should return 422 if email already exists', async () => {
       const createAccountDto = {
         name: 'Jane Smith',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe1@picpay.com',
       };
 
       await request(app.getHttpServer())
@@ -126,7 +124,7 @@ describe('AccountController (E2E)', () => {
       const accountData = response.body;
       expect(accountData).toHaveProperty('id');
       expect(accountData.name).toBe('John Doe');
-      expect(accountData.email).toBe('john.doe@picpay.com');
+      expect(accountData.email).toBe('john.doe1@picpay.com');
     });
 
     it('should return 404 if account does not exist', async () => {

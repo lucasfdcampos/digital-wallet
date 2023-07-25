@@ -237,7 +237,7 @@ Escalabilidade: Mesmo num projeto pequeno como este, o Kafka possibilita o cresc
 Integração e Flexibilidade: Com APIs e suporte a várias linguagens, o Kafka se integra facilmente a diferentes componentes e tecnologias, oferecendo flexibilidade para a evolução do projeto.
 
 #### Kong Api-Gateway
-Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado, mas de uma maneira geral, contém diversas vantagens, como: suporte a plugins, balanceamento de carga e estabilidade, rate limiting e throttling, suporte a vários protocolos e escalabidade.
+Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado, mas de uma maneira geral, contém diversas vantagens, como: suporte a _plugins_, balanceamento de carga e estabilidade, _rate limiting_ e _throttling_, suporte a vários protocolos e escalabidade.
 
 #### Mongo
 No contexto do projeto, o MongoDB foi uma escolha estratégica como banco de dados para a auditoria das transações. Sua natureza NoSQL permitiu armazenar esses registros de forma flexível, adaptando-se às mudanças nos dados ao longo do tempo sem interrupções no fluxo da aplicação.

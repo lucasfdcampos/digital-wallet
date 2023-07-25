@@ -239,6 +239,10 @@ Integração e Flexibilidade: Com APIs e suporte a várias linguagens, o Kafka s
 #### Kong Api-Gateway
 Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado, mas de uma maneira geral, contém diversas vantagens, como: suporte a plugins, balanceamento de carga e estabilidade, rate limiting e throttling, suporte a vários protocolos e escalabidade.
 
+#### Mongo
+No contexto do projeto, o MongoDB foi uma escolha estratégica como banco de dados para a auditoria das transações. Sua natureza NoSQL permitiu armazenar esses registros de forma flexível, adaptando-se às mudanças nos dados ao longo do tempo sem interrupções no fluxo da aplicação.
+
+
 #### Event-Driven
 Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou folharem devido a problemas de rede. _Event-Driven_ é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
 

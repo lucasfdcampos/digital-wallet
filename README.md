@@ -237,7 +237,7 @@ Escalabilidade: Mesmo num projeto pequeno como este, o Kafka possibilita o cresc
 Integração e Flexibilidade: Com APIs e suporte a várias linguagens, o Kafka se integra facilmente a diferentes componentes e tecnologias, oferecendo flexibilidade para a evolução do projeto.
 
 #### Kong Api-Gateway
-Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado, mas de uma maneira geral, contém diversas vantagens, como: suporte a plugins, balanceamento de carga e estabilidade, rate limiting e throttling, suporte a vários protocolos e escalabidade
+Uma _Api-Gateway_ entrega muitas vantagens, neste pequeno projeto serve para direcionar as _requests_ para o _microservice_ adequado, mas de uma maneira geral, contém diversas vantagens, como: suporte a plugins, balanceamento de carga e estabilidade, rate limiting e throttling, suporte a vários protocolos e escalabidade.
 
 #### Event-Driven
 Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou folharem devido a problemas de rede. _Event-Driven_ é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
@@ -248,7 +248,7 @@ Devido a esta característica, _microservices_ "casam" bem como uma arquitetur
 
 ## Swagger
 
-A documentação _Swagger_ está divida entre os microserviços
+A documentação _Swagger_ está divida entre os microserviços:
 
 #### _Account_
 [Swagger Account](http://localhost:3000/swagger)
@@ -259,6 +259,13 @@ A documentação _Swagger_ está divida entre os microserviços
 
 ## Anotações
 
-Gosto de utilizar o [Notion](https://www.notion.so/) para fazer anotações e _todo lists_ enquanto desenvolvo, então disponibilizo aqui as notas do projeto, com idéias, prioridades e pontos que eu  gostaria de ter desenvolvido:
+Gosto de utilizar o [Notion](https://www.notion.so/) para fazer anotações e _todo lists_ enquanto desenvolvo, então disponibilizarei aqui as notas do projeto, com idéias, prioridades e _features_ que eu  gostaria de ter desenvolvido:
 
 [Challenge notes](https://amplified-subway-859.notion.site/Challenge-notes-1d94f3caaca4420fbacd78c3cdaa87ad)
+
+---
+<p align="auto">
+  <a href="https://www.linkedin.com/in/lucasfdcampos/">
+    <img alt="Made by" src=https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white>
+  </a>
+</p>

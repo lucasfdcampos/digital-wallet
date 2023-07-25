@@ -10,6 +10,7 @@ up-all:
 	fi
 	@echo "Starting containers..."
 	docker-compose up -d
+	docker-compose ps -a
 
 down:
 	@echo "Stopping containers..."

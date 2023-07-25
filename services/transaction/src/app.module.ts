@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as ormConfig from './orm.config';
+import { developmentConfig } from './orm.config';
 import { join } from 'path';
 import { TransactionModule } from './transaction/transaction.module';
 import { KafkaModule } from './kafka/kafka.module';
@@ -12,7 +12,7 @@ import { AuditModule } from './audit/audit.module';
   imports: [
     KafkaModule,
     TypeOrmModule.forRoot({
-      ...ormConfig,
+      ...developmentConfig,
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
       migrations: [join(__dirname, './migrations/*{.ts,.js}')],
     }),

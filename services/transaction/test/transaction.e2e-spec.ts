@@ -25,6 +25,8 @@ describe('TransactionController (E2E)', () => {
   let transactionMock: Transaction;
   let depositTransactionMock: Transaction;
   let mockProducerService: MockProducerService;
+  const transactionPurchaseWalletIdMock = v4();
+  const transactionDepositWalletIdMock = v4();
 
   beforeAll(async () => {
     testConnection = await createConnection({
@@ -65,10 +67,8 @@ describe('TransactionController (E2E)', () => {
 
     moduleFixture.get<Repository<Transaction>>(getRepositoryToken(Transaction));
 
-    await testConnection.query('DELETE FROM transaction');
-
     const createTransaction = testConnection.getRepository(Transaction).create({
-      walletId: v4(),
+      walletId: transactionPurchaseWalletIdMock,
       value: 100,
       type: TransactionType.PURCHASE,
       status: TransactionStatus.APPROVED,
@@ -81,7 +81,7 @@ describe('TransactionController (E2E)', () => {
     const createDepositTransaction = testConnection
       .getRepository(Transaction)
       .create({
-        walletId: v4(),
+        walletId: transactionDepositWalletIdMock,
         value: 100,
         type: TransactionType.DEPOSIT,
         status: TransactionStatus.APPROVED,
@@ -93,7 +93,13 @@ describe('TransactionController (E2E)', () => {
   });
 
   afterAll(async () => {
-    await testConnection.query('DELETE FROM transaction');
+    await testConnection.query('DELETE FROM transaction WHERE wallet_id = $1', [
+      transactionPurchaseWalletIdMock,
+    ]);
+
+    await testConnection.query('DELETE FROM transaction WHERE wallet_id = $1', [
+      transactionDepositWalletIdMock,
+    ]);
 
     await app.close();
     await testConnection.close();

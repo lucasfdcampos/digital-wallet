@@ -49,23 +49,23 @@ Esta solução consiste em dois microsserviços onde é possível realizar as se
 
 ![image info](./architecture.png)
 
-Conforme a figura acima, toda estrutura está em containers *Docker onde* temos dois microsserviços: _Account_ e _Transaction_. Ambos serviços se conectam e trocam eventos através do Apache Kafka e cada um tem seu próprio banco de dados PostgreSQL para persistencia e fonte de dados. O serviço _Transaction_ se conecta ao MongoDB para salvar dados de auditoria.
+Conforme a figura acima, toda estrutura está em containers _Docker_ onde temos dois microsserviços: **_Account_** e **_Transaction_**. Ambos serviços se conectam e trocam eventos através do Apache Kafka e cada um tem seu próprio banco de dados PostgreSQL para persistencia e fonte de dados. O serviço **_Transaction_** se conecta ao MongoDB para salvar dados de auditoria.
 
 Ambos serviços estão conectados ao Kong API-Gateway.
 
 ### Account
 
-Esse serviço é responsável por cadastrar uma conta e as _wallets_ dessa conta, consultar o extrato (_history_), consulta da _wallet_ (saldo) e envio de eventos de algumas transações para o serviço _Transaction_ como: depósito, compra e saque (retirada).
+Esse serviço é responsável por cadastrar uma conta e as _wallets_ dessa conta, consultar o extrato (_history_), consulta da _wallet_ (saldo) e envio de eventos de algumas transações para o serviço **_Transaction_**  como: depósito, compra e saque (retirada).
 
 Este serviço recebe um evento de atualizações de saldo e que também cria históricos de movimentações.
 
 ### Transaction
 
-Esse serviço é responsável por receber e processar eventos de transações que foram enviadas pelo Account e também criar transações de cancelamento e estorno. O _transaction_ também contém listagem de transações e de auditoria. 
+Esse serviço é responsável por receber e processar eventos de transações que foram enviadas pelo **_Account_** e também criar transações de cancelamento e estorno. O **_Transaction_** também contém listagem de transações e de auditoria. 
 
 Todo envio de eventos são enviados pelo Apache Kafka e salvos no banco de dados PostgreSQL. A cada transacão recebida é gerado uma auditoria com MongoDB.
 
-A premissa é que o Account seja um serviço mais “voltado ao cliente”, onde faria operações (transações) que teria mais controle, como: depósito, saque e efetuar compras. Já o serviço de Transaction seria um processamento das transações com a possibilidade da Companhia cancelar ou efetuar estornos, listar as transações e verificar dados de auditoria.
+A premissa é que o **_Account_** seja um serviço mais “voltado ao cliente”, onde faria operações (transações) que teria mais controle, como: depósito, saque e efetuar compras. Já o serviço de **_Transaction_** seria um processamento das transações com a possibilidade da Companhia cancelar ou efetuar estornos, listar as transações e verificar dados de auditoria.
 
 **Cancelamento**
 

@@ -185,8 +185,8 @@ curl --request POST \
 
 #### Listar auditoria
 ```bash
-curl --request POST \
-  --url http://localhost:8000/v1/transaction/reverse/<transaction_id>
+curl --request GET \
+  --url http://localhost:8000/v1/audit
 ```
 
 ## Testes
@@ -244,7 +244,7 @@ No contexto do projeto, o MongoDB foi uma escolha estratégica como banco de dad
 
 
 #### Event-Driven
-Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou folharem devido a problemas de rede. _Event-Driven_ é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
+Trabalhar com _microservices_ pode ser muito complexo dependendo do domínio da aplicação. Um dos grandes problemas desta arquitetura são as chamadas síncronas entre serviços, que podem gerar lentidão no sistema como um todo ou falharem devido a problemas de rede. _Event-Driven_ é descrito por Mark Richards e Neal Ford em [Fundamentals of Software Architecture: An Engineering Approach](https://www.goodreads.com/book/show/44144493-fundamentals-of-software-architecture) como uma `arquitetura`. Nesta arquitetura, cada _transaction_ gera um evento e este será usado por outra ação que também irá gerar um evento e assim por diante.
 
 Devido a esta característica, _microservices_ "casam" bem como uma arquitetura baseada em eventos, pois os erros de rede são drasticamente diminuídos e tudo acontece de forma assíncrona.
 
@@ -255,11 +255,12 @@ Devido a esta característica, _microservices_ "casam" bem como uma arquitetur
 A documentação _Swagger_ está divida entre os microserviços:
 
 #### _Account_
-[Swagger Account](http://localhost:3000/swagger)
+[Swagger Account](http://localhost:3000/swagger){:target="_blank"}
 
 
 #### _Transaction_
-[Swagger Transaction](http://localhost:3010/swagger)
+[Swagger Tramnsaction](http://localhost:3010/swagger){:target="_blank"}
+
 
 ## Anotações
 

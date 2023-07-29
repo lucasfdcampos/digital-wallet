@@ -255,11 +255,11 @@ Devido a esta característica, _microservices_ "casam" bem como uma arquitetur
 A documentação _Swagger_ está divida entre os microserviços:
 
 #### _Account_
-[Swagger Account](http://localhost:3000/swagger){:target="_blank"}
+<a href="http://localhost:3000/swagger" target="_blank">Swagger Account</a>
 
 
 #### _Transaction_
-[Swagger Tramnsaction](http://localhost:3010/swagger){:target="_blank"}
+<a href="http://localhost:3010/swagger" target="_blank">Swagger Transaction</a>
 
 
 ## Anotações

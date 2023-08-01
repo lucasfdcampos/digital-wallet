@@ -79,7 +79,7 @@ describe('WalletController (E2E)', () => {
     moduleFixture.get<Repository<History>>(getRepositoryToken(History));
 
     const johnDoeAccount = await testConnection.getRepository(Account).findOne({
-      where: { email: 'john.doe2@picpay.com' },
+      where: { email: 'john.doe2@wallet.com' },
     });
 
     if (johnDoeAccount) {
@@ -87,7 +87,7 @@ describe('WalletController (E2E)', () => {
     } else {
       const createAccountDto: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe2@picpay.com',
+        email: 'john.doe2@wallet.com',
       };
 
       const createAccountJohnDoe = testConnection
@@ -104,7 +104,7 @@ describe('WalletController (E2E)', () => {
 
   afterAll(async () => {
     const johnDoeAccount = await testConnection.getRepository(Account).findOne({
-      where: { email: 'john.doe2@picpay.com' },
+      where: { email: 'john.doe2@wallet.com' },
     });
 
     if (johnDoeAccount) {

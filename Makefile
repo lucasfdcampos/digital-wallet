@@ -1,4 +1,4 @@
-NETWORK_NAME := picpay-net
+NETWORK_NAME := wallet-net
 
 .PHONY: create_network
 

@@ -1,19 +1,18 @@
 <div align="center">
-  <img src="./logo.svg" alt="PicPay Logo">
   <p align="center">
   <a href="https://www.linkedin.com/in/lucasfdcampos/">
     <img alt="Made by" src="https://img.shields.io/badge/made%20by-Lucas%20Campos-%19F78F">
   </a>
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lucasfdcampos/picpay-wallet-challenge?color=%19F78F">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasfdcampos/picpay-wallet-challenge?color=%19F78F">
-  <a href="https://github.com/lucasfdcampos/picpay-wallet-challenge/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasfdcampos/picpay-wallet-challenge?color=%19F78F">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lucasfdcampos/digital-wallet-challenge?color=%19F78F">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/lucasfdcampos/digital-wallet-challenge?color=%19F78F">
+  <a href="https://github.com/lucasfdcampos/digital-wallet-challenge/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lucasfdcampos/digital-wallet-challenge?color=%19F78F">
   </a>
   </p>
 </div>
 
 
-# PicPay digital wallet challenge
+# Digital wallet
 
 Solução para carteira digital
 
@@ -90,7 +89,7 @@ make up-all
 Caso prefira subir o ambiente sem o _Makefile_ acima:
 
 ```bash
-docker network create picpay-net
+docker network create wallet-net
 docker-compose up -d
 ```
 
@@ -98,7 +97,7 @@ docker-compose up -d
 
 Pode ser importado as collections do _Insomnia_ (``made by Kong``) ou utilizar os comandos diretamente no terminal. É necessário ter o curl instalado!
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=PicPay&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2Fpicpay-wallet-challenge%2Fmaster%2Fpicpay_insomnia.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Wallet&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2wallet-challenge%2Fmaster%2Fwallet_insomnia.json)
 
 
 #### Criando _account_
@@ -109,7 +108,7 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
 	"name": "Jane Smith",
-	"email": "jane.smith@picpay.com"
+	"email": "jane.smith@wallet.com"
 }'
 ```
 

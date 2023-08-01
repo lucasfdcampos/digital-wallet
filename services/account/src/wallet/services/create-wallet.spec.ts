@@ -10,7 +10,7 @@ import { NotFoundException } from '@nestjs/common';
 const newAccount = new Account({
   id: '1',
   name: 'John Doe',
-  email: 'john.doe@picpay.com',
+  email: 'john.doe@wallet.com',
   createdAt: new Date(),
   updatedAt: new Date(),
   deletedAt: null,

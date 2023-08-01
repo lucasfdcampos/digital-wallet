@@ -11,7 +11,7 @@ import { HistoryType } from '@common/enums/history-type.enum';
 const someAccount = new Account({
   id: '1',
   name: 'John Doe',
-  email: 'john.doe@picpay.com',
+  email: 'john.doe@wallet.com',
   createdAt: new Date(),
   updatedAt: new Date(),
   deletedAt: null,

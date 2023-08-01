@@ -9,7 +9,7 @@ import { UnprocessableEntityException } from '@nestjs/common';
 const newAccount = new Account({
   id: '1',
   name: 'John Doe',
-  email: 'john.doe@picpay.com',
+  email: 'john.doe@wallet.com',
   createdAt: new Date(),
   updatedAt: new Date(),
   deletedAt: null,
@@ -51,7 +51,7 @@ describe('CreateAccountService', () => {
       // Arrange
       const data: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe@wallet.com',
       };
 
       jest.spyOn(accountRepository, 'findOne').mockResolvedValueOnce(undefined);
@@ -74,13 +74,13 @@ describe('CreateAccountService', () => {
       // Arrange
       const data: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe@wallet.com',
       };
 
       const existingAccount: Account = {
         id: '1',
         name: 'Existing Account',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe@wallet.com',
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -105,7 +105,7 @@ describe('CreateAccountService', () => {
       // Arrange
       const data: CreateAccountDto = {
         name: 'John Doe',
-        email: 'john.doe@picpay.com',
+        email: 'john.doe@wallet.com',
       };
 
       jest.spyOn(accountRepository, 'save').mockRejectedValueOnce(new Error());

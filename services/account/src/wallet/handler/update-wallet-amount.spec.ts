@@ -17,7 +17,7 @@ describe('UpdateWalletAmountHandler', () => {
   const someAccouint = new Account({
     id: '1',
     name: 'John Doe',
-    email: 'john.doe@picpay.com',
+    email: 'john.doe@wallet.com',
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,

@@ -13,7 +13,7 @@ export class CreateAccountDto {
   @IsEmail()
   @MaxLength(100)
   @ApiProperty({
-    example: 'johndoe@picpay.com',
+    example: 'johndoe@wallet.com',
   })
   email: string;
 }

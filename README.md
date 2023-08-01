@@ -96,7 +96,7 @@ docker-compose up -d
 
 Pode ser importado as collections do _Insomnia_ (``made by Kong``) ou utilizar os comandos diretamente no terminal. É necessário ter o curl instalado!
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Wallet&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2wallet%2Fmaster%2Fwallet_insomnia.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Wallet&uri=https%3A%2F%2Fraw.githubusercontent.com%2Flucasfdcampos%2Fdigital-wallet%2Fmaster%2Fwallet_insomnia.json)
 
 
 #### Criando _account_

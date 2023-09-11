@@ -28,7 +28,6 @@ Solução para carteira digital
 - [Tecnologias](#tecnologias)
 - [Escolhas técnicas](#escolhas-técnicas)
 - [Swagger](#swagger)
-- [Anotações](#anotações)
 
 ## Solução
 Esta solução consiste em dois microsserviços onde é possível realizar as seguintes operações:
@@ -259,12 +258,6 @@ A documentação _Swagger_ está divida entre os microserviços:
 #### _Transaction_
 <a href="http://localhost:3010/swagger" target="_blank">Swagger Transaction</a>
 
-
-## Anotações
-
-Gosto de utilizar o [Notion](https://www.notion.so/) para fazer anotações e _todo lists_ enquanto desenvolvo, então disponibilizarei aqui as notas do projeto, com idéias, prioridades e _features_ que eu  gostaria de ter desenvolvido:
-
-[Challenge notes](https://amplified-subway-859.notion.site/Challenge-notes-1d94f3caaca4420fbacd78c3cdaa87ad)
 
 ---
 <p align="auto">
